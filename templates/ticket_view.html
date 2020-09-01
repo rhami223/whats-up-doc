@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{%block content%}
+<h1>{{data.title}}</h1>
+<h2>Status: {{data.status}}</h2>
+<h2>Reported: {{data.created}}</h2>
+<h3>Reported By: <a href='/user_view/{{data.filed_by.id}}/'>{{data.filed_by.username}}</a></h3>
+{%if data.assigned_to%}
+<h3>Assigned To: <a href='/user_view/{{data.assigned_to.id}}/'>{{data.assigned_to.username}}</a></h3>
+{%endif%}
+{%if data.completed_by%}
+<h3>Completed By: <a href='/user_view/{{data.completed_by.id}}/'>{{data.completed_by.username}}</a></h3>
+{%endif%}
+<h4>Description: {{data.description}}</h4>
+{%if data.status == "NEW"%}
+<a href='/edit_ticket/{{data.id}}/'>Edit Ticket</a>
+<a href='/assign_ticket/{{data.id}}/'>Claim Ticket</a>
+<a href='/invalid_ticket/{{data.id}}/'>Mark Ticket Invalid</a>
+{%endif%}
+
+{%if data.status == "IN PROGRESS"%}
+<a href='/edit_ticket/{{data.id}}/'>Edit Ticket</a>
+<a href='/done_ticket/{{data.id}}/'>Mark Ticket Complete</a>
+<a href='/return_ticket/{{data.id}}/'>Return Ticket</a>
+{%endif%}
+
+{%if data.status == "DONE"%}
+<a href='/reopen_ticket/{{data.id}}/'>Reopen Ticket</a>
+{%endif%}
+{%endblock%}
